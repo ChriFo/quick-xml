@@ -134,17 +134,13 @@ where
     }
 
     fn end(self) -> Result<Self::Ok, DeError> {
-        if self.children.is_empty() {
-            self.parent.writer.write_event(Event::Empty(self.attrs))?;
-        } else {
-            self.parent
-                .writer
-                .write_event(Event::Start(self.attrs.to_borrowed()))?;
-            self.parent.writer.write(&self.children)?;
-            self.parent
-                .writer
-                .write_event(Event::End(self.attrs.to_end()))?;
-        }
+        self.parent
+            .writer
+            .write_event(Event::Start(self.attrs.to_borrowed()))?;
+        self.parent.writer.write(&self.children)?;
+        self.parent
+            .writer
+            .write_event(Event::End(self.attrs.to_end()))?;
         Ok(())
     }
 }
