@@ -201,7 +201,7 @@ impl<'r, 'w, W: Write> ser::Serializer for &'w mut Serializer<'r, W> {
     }
 
     fn serialize_str(self, value: &str) -> Result<Self::Ok, DeError> {
-        self.write_primitive(value, false)
+        self.write_primitive(value, true)
     }
 
     fn serialize_bytes(self, _value: &[u8]) -> Result<Self::Ok, DeError> {
